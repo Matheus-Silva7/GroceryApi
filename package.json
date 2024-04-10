@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "express-validators": "^1.0.4",
     "nodemon": "^3.1.0"
   }
 }
