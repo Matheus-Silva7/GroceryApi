@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/authController");
+const {validateEmail, validatePassword, validateUserName} = require("../services/validators")
 
 //rota do cadastro
-router.post('/signup', userController.signUp);
+router.post('/signup', validateEmail, validatePassword, validateUserName, userController.signUp);
 
 //rota do login
 router.post('/signin', userController.signIn);
