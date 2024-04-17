@@ -10,8 +10,11 @@ router.post('/signup', validateEmail, validatePassword, validateUserName, userCo
 //rota do login
 router.post('/signin', userController.signIn);
 
-//rota mostrar dados do user
-router.get('/profile');
+//rota update dados user
+router.patch('/update')
+
+//rota delete user
+router.delete('/delete')
 
 
 
