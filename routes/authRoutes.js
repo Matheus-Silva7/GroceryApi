@@ -11,10 +11,10 @@ router.post('/signup', validateEmail, validatePassword, validateUserName, userCo
 router.post('/signin', userController.signIn);
 
 //rota update dados user
-router.patch('/update')
+router.patch('/update', userController.updateUser)
 
 //rota delete user
-router.delete('/delete')
+router.delete('/delete', userController.deleteUser)
 
 
 

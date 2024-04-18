@@ -12,4 +12,4 @@ module.exports = {
     validateUserName: check("username")
     .isLength({min: 3})
     .withMessage("o User Name deve conter min 3 caracteres")
-}
+}  
