@@ -23,6 +23,10 @@ const UserSchema = database.define('usuario',{
         allowNull: false,
         required: true
     },
+    fotoUsuario:{
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     admin:{
         type: Sequelize.BOOLEAN,
          required: true

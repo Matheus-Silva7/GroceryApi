@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const userController = require("../controllers/userController");
+const isAuth = require("../middleware/is-auth");
 
 //rota mostrar dados do user
-router.get('/profile');
+router.get('/profile', isAuth,userController.profile);
 
 //rota para add favoritos
 router.post('/addfavorites')

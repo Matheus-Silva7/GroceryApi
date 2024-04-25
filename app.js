@@ -8,12 +8,13 @@ const port = 3030;
 })()
 
 
-
-const userRoutes = require("./routes/authRoutes")
+const authRoutes = require("./routes/authRoutes")
+const userRoutes = require("./routes/userRoutes")
 
 app.use(express.json())
 
-app.use("/auth", userRoutes)
+app.use("/auth", authRoutes)
+app.use("/user", userRoutes)
 
 app.listen(port, ()=>{
     console.log("servidor rodando, porta:"+port)

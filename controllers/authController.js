@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require('bcrypt')
 const User = require("../models/userModel")
+const jwt = require("jsonwebtoken")
 
 //função cadastro
 exports.signUp = (req, res) => {
@@ -19,7 +20,7 @@ exports.signUp = (req, res) => {
         return
     }
 
-    const userName = req.body.username
+    const name = req.body.name
     const email = req.body.email
     const password = req.body.password
     //ver se o user é adm ou nao
@@ -29,7 +30,7 @@ exports.signUp = (req, res) => {
     bcrypt.hash(password, 12)
         .then(async hashedPassword => {
             const newUser = await User.create({
-                nome: userName,
+                nome: name,
                 email: email,
                 senha: hashedPassword,
                 admin: isAdm
@@ -51,32 +52,52 @@ exports.signIn = async (req, res) => {
 
     const email = req.body.email
     const password = req.body.password
+    let loadedUser;
+    try {
+        await User.findOne({
+            where: {
+                email: email
+            }
+        }).then(async user => {
+            console.log(user)
+            if (!user) {
+                res.status(404).json({
+                    message: "Usuario não encontrado"
+                })
+            }
+            loadedUser = user
+            return bcrypt.compare(password, user.senha)
+        }).then(passIsEqual => {
+            console.log(passIsEqual)
+            if (!passIsEqual) {
+                res.status(401).json({
+                    message: "As senhas não são iguais"
+                })
+                return
+            }
 
-    await User.findOne({
-        where: {
-            email: email
-        }
-    }).then(user => {
-        console.log(user)
-        if (!user) {
-            res.status(404).json({
-                message: "Usuario não encontrado"
-            })
-        }
-        const senhaUser = user.senha
-        return bcrypt.compare(senhaUser,password)
-    }).then(passIsEqual => {
-        if (!passIsEqual){
-            res.status(401).json({
-                message: "As senhas não são iguais"
-            })
-        }
+            //Vamos gerar o token para ele!
+            const token = jwt.sign(
+                {
+                    userId: loadedUser.id,
+                    name: loadedUser.name,
+                    email: loadedUser.email,
+                },
+                "MinhaChaveJWT@2024Senai",
+                { expiresIn: "1h" }
+            )
 
-        res.status(201).json({
-            message: "User criado com sucesso!!"
+            res.status(201).json({
+                message: "User logado com sucesso!!",
+                token
+            })
+
+        }).catch(error => {
+            console.log(error)
         })
-  
-    })
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 
@@ -92,23 +113,34 @@ where:{
 })*/
 
 exports.updateUser = async (req, res) => {
+    const userId = req.userId
+    const newName = req.body.newName
     const user = await User.findOne({
         where: {
-            email: "matheus@gmail.com"
+            id: userId
         }
     })
 
-    user.senha = "senhanova"
+    console.log(newName)
+    user.nome = newName
     await user.save()
+    res.status(201).json({
+        message: "Nome Alterado com sucesso!!",
+        newName
+    })
 }
 
 
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => { 
+    const userId = req.userId
     const user = await User.findOne({
         where: {
-            email: "marcelo@gmail.com"
+            id: userId
         }
     })
 
     await user.destroy()
+    res.status(201).json({
+        message: "user excluido com sucesso!!"
+    })
 }

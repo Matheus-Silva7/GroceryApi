@@ -9,7 +9,7 @@ module.exports = {
     .isLength({min: 8})
     .withMessage("A senha deve conter min 8 caracteres"),
 
-    validateUserName: check("username")
+    validateUserName: check("name")
     .isLength({min: 3})
     .withMessage("o User Name deve conter min 3 caracteres")
 }  

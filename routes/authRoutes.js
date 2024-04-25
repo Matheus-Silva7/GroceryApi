@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/authController");
-const {validateEmail, validatePassword, validateUserName} = require("../services/validators")
+const {validateEmail, validatePassword, validateUserName} = require("../services/validators");
+const isAuth = require("../middleware/is-auth");
 
 //rota do cadastro
 router.post('/signup', validateEmail, validatePassword, validateUserName, userController.signUp);
@@ -11,7 +12,7 @@ router.post('/signup', validateEmail, validatePassword, validateUserName, userCo
 router.post('/signin', userController.signIn);
 
 //rota update dados user
-router.patch('/update', userController.updateUser)
+router.patch('/update', isAuth,userController.updateUser)
 
 //rota delete user
 router.delete('/delete', userController.deleteUser)
