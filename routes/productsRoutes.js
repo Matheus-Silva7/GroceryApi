@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const isAuth = require("../middleware/is-auth");
+const categoryController = require("../controllers/categoryController")
 
 //rota pegar todos os produtos
 router.get('/products')
@@ -13,7 +15,7 @@ router.get('/product/:id')
 router.get('/categories')
 
 //rota add categoria
-router.post('/category')
+router.post('/category', isAuth, categoryController.CreateCategory)
 
 
 

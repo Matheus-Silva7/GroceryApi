@@ -23,6 +23,7 @@ exports.signUp = (req, res) => {
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
+    const fotoUsuario = req.body.fotoUsuario
     //ver se o user é adm ou nao
     const isAdm = req.body.admin
 
@@ -33,6 +34,7 @@ exports.signUp = (req, res) => {
                 nome: name,
                 email: email,
                 senha: hashedPassword,
+                fotoUsuario: fotoUsuario,
                 admin: isAdm
             })
 
@@ -111,7 +113,7 @@ where:{
     //em produtos usar categoria =x, preco =y
 }
 })*/
-
+ 
 exports.updateUser = async (req, res) => {
     const userId = req.userId
     const newName = req.body.newName
