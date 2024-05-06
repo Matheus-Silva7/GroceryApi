@@ -12,7 +12,7 @@ router.post('/product')
 router.get('/product/:id')
 
 //rota pegar categorias
-router.get('/categories')
+router.get('/categories', categoryController.GetCategories)
 
 //rota add categoria
 router.post('/category', isAuth, categoryController.CreateCategory)

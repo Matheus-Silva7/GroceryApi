@@ -33,3 +33,13 @@ exports.CreateCategory = async (req, res) =>{
         })
     }
 }
+
+exports.GetCategories = async (req, res)=>{
+    const AllCategories = await Category.findAll()
+
+    console.log(AllCategories)
+
+    res.status(201).json({
+        AllCategories
+    })
+}
