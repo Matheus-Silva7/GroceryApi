@@ -17,7 +17,7 @@ const UserSchema = database.define('usuario',{
         type: Sequelize.STRING,
         allowNull: false,
         required: true
-    },
+    }, 
     senha:{
         type: Sequelize.STRING,
         allowNull: false,
@@ -34,3 +34,4 @@ const UserSchema = database.define('usuario',{
 })
 
 module.exports = UserSchema
+

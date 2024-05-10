@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const isAuth = require("../middleware/is-auth");
 const categoryController = require("../controllers/categoryController")
+const productController = require("../controllers/productController")
 
 //rota pegar todos os produtos
 router.get('/products')

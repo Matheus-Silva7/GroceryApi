@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
-const database = require('../dbConnect')
+const database = require("../dbConnect");
+
 
 const CategorySchema = database.define('category',{
     id:{
@@ -21,3 +22,5 @@ const CategorySchema = database.define('category',{
 })
 
 module.exports = CategorySchema
+
+

@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
-const sequelize =  new Sequelize('grocery', 'root', 'root',{
+
+//troquei o nome do bd pq o meu criei como grocery_store ao inves de grocery
+const sequelize =  new Sequelize('grocery_store', 'root', 'root',{
     dialect:'mysql',
     host: 'localhost'
 })
