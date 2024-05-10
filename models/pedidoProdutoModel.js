@@ -12,7 +12,7 @@ const pedidoProdutoSchema = database.define('pedido produto',{
     produto: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'produtos', 
+            model: 'produtos' , 
             key: 'id',
         }
     },
