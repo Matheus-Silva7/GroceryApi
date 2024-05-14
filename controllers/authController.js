@@ -4,7 +4,7 @@ const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
 
 //função cadastro
-exports.signUp = (req, res) => {
+exports.signUp = async (req, res) => {
 
     const errors = validationResult(req);
 
@@ -27,24 +27,40 @@ exports.signUp = (req, res) => {
     //ver se o user é adm ou nao
     const isAdm = req.body.admin
 
+    await User.findOne({
+        where: {
+            email: email
+        }
+    }).then(async user => {
 
-    bcrypt.hash(password, 12)
-        .then(async hashedPassword => {
-            const newUser = await User.create({
-                nome: name,
-                email: email,
-                senha: hashedPassword,
-                fotoUsuario: fotoUsuario,
-                admin: isAdm
+        if (user) {
+            res.status(403).json({
+                message: "Email já cadastrado"
+            })
+            return
+        }
+
+        bcrypt.hash(password, 12)
+            .then(async hashedPassword => {
+                const newUser = await User.create({
+                    nome: name,
+                    email: email,
+                    senha: hashedPassword,
+                    fotoUsuario: fotoUsuario,
+                    admin: isAdm
+                })
+
+                console.log(newUser)
+
+                res.status(201).json({
+                    message: "User criado com sucesso!!"
+                })
+
             })
 
-            console.log(newUser)
+    })
 
-            res.status(201).json({
-                message: "User criado com sucesso!!"
-            })
 
-        })
 
 
 }
@@ -113,7 +129,7 @@ where:{
     //em produtos usar categoria =x, preco =y
 }
 })*/
- 
+
 exports.updateUser = async (req, res) => {
     const userId = req.userId
     const newName = req.body.newName
@@ -133,7 +149,7 @@ exports.updateUser = async (req, res) => {
 }
 
 
-exports.deleteUser = async (req, res) => { 
+exports.deleteUser = async (req, res) => {
     const userId = req.userId
     const user = await User.findOne({
         where: {

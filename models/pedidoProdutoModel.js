@@ -23,4 +23,4 @@ const pedidoProdutoSchema = database.define('pedido produto',{
     }
 });
 
-module.exports = pedidoProdutoSchema;
+module.exports = pedidoProdutoSchema; 

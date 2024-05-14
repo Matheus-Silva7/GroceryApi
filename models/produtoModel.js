@@ -13,6 +13,10 @@ const ProductSchema = database.define('produtos', {
         allowNull: false,
         required: true
     },
+    imageProduct: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     qnt_disponivel: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -30,7 +34,7 @@ const ProductSchema = database.define('produtos', {
     categoria_fk: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'categories', // Corrigido para 'category'
+            model: 'categorias', 
             key: 'id',
         }
     }

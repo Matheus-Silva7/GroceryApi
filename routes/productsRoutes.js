@@ -5,12 +5,12 @@ const categoryController = require("../controllers/categoryController")
 const productController = require("../controllers/productController")
 
 //rota pegar todos os produtos
-router.get('/products')
+router.get('/products', productController.GetProdutos)
 //rota cadastra produto
-router.post('/product')
+router.post('/product', isAuth, productController.createProduto)
 
 //rota pegar produto específico
-router.get('/product/:id')
+router.get('/product/:id', productController.GetOneProduct)
 
 //rota pegar categorias
 router.get('/categories', categoryController.GetCategories)
