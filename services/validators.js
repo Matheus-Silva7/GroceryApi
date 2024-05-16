@@ -11,5 +11,14 @@ module.exports = {
 
     validateUserName: check("name")
     .isLength({min: 3})
-    .withMessage("o User Name deve conter min 3 caracteres")
+    .withMessage("o User Name deve conter min 3 caracteres"),
+
+    validateCategoria: check("categoria")
+    .isLength({min: 3})
+    .withMessage("o nome da categoria deve conter min 3 caracteres"),
+
+    validateProduto: check("name")
+    .isLength({min: 3})
+    .withMessage("o nome do produto deve conter min 3 caracteres")
+ 
 }  

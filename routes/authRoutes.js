@@ -15,7 +15,7 @@ router.post('/signin', userController.signIn);
 router.patch('/update', isAuth,userController.updateUser)
 
 //rota delete user
-router.delete('/delete', userController.deleteUser)
+router.delete('/delete', isAuth, userController.deleteUser)
 
 
 

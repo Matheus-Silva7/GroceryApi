@@ -1,6 +1,17 @@
 const Produto = require("../models/produtoModel")
-
+const { validationResult } = require("express-validator");
 exports.createProduto = (req, res) =>{
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        res.status(500).json({
+            message: "Error ao salvar o user...",
+            result: errors
+        })
+        return
+    }
+    
     const nome = req.body.name
     const imageProduct = req.body.imageProduct
     const qnt_disponivel = req.body.qtdDisponivel
