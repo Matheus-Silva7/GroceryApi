@@ -6,8 +6,10 @@ const isAuth = require("../middleware/is-auth");
 //rota mostrar dados do user
 router.get('/profile', isAuth,userController.profile);
 
+router.patch('/changePassword', isAuth,userController.changePass);
+
 //rota para add favoritos
-router.post('/addfavorites')
+router.post('/addfavorites/:id')
 //rota para mostrar favoritos user
 router.get('/favorites')
 
