@@ -24,7 +24,7 @@ exports.createProduto = async (req, res) => {
     }
 }
 
-/* exports.updateProduto = async (req, res) => {
+ exports.updateProduto = async (req, res) => {
 
     const prodId = req.params.id
 
@@ -52,7 +52,7 @@ exports.createProduto = async (req, res) => {
 
     
 
-} */
+} 
 
 
 

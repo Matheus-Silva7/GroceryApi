@@ -15,6 +15,9 @@ router.get('/product/:id', productController.GetOneProduct)
 //rota deletar produto específico
 router.delete('/product/:id', productController.deleteProduct)
 
+//rota atualizar produto específico
+router.put('/product/:id', productController.updateProduto)
+
 //rota pegar categorias
 router.get('/categories', categoryController.GetCategories)
 
