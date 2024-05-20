@@ -17,7 +17,7 @@ const ProductSchema = database.define('produtos', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    qnt_disponivel: {
+    qtd_disponivel: {
         type: Sequelize.INTEGER,
         allowNull: false,
         required: true
@@ -25,7 +25,7 @@ const ProductSchema = database.define('produtos', {
     qtd_produto: {
         type: Sequelize.STRING,
         allowNull: false,
-        required: true
+        required: true 
     },
     preco: {
         type: Sequelize.DECIMAL,
