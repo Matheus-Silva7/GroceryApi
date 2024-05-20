@@ -24,35 +24,34 @@ exports.createProduto = async (req, res) => {
     }
 }
 
- exports.updateProduto = async (req, res) => {
+exports.updateProduto = async (req, res) => {
+    const prodId = req.params.id;
 
-    const prodId = req.params.id
+    const { nome, imageProduct, qtd_disponivel, qtd_produto, preco, categoria_fk } = req.body;
 
-    const nome = req.body.name
-    const imageProduct = req.body.imageProduct
-    const qnt_disponivel = req.body.qtdDisponivel
-    const qtd_produto = req.body.qtdProduto
-    const preco = req.body.preco
-    const categoria_fk = req.body.categoriaFk
-
-
-
-    if (prodId) {
-        const newProduct = Produto.set({
+    try {
+        const updated = await Produto.update({
             nome,
             imageProduct,
-            qnt_disponivel,
+            qtd_disponivel,
             qtd_produto,
             preco,
             categoria_fk
-        })
-        console.log(newProduct)
-        
+        }, {
+            where: { id: prodId }
+        });
+
+        if (updated) {
+            const updatedProduct = await Produto.findOne({ where: { id: prodId } });
+            res.status(200).json({ produto: updatedProduct });
+        } else {
+            res.status(404).json({ message: 'Produto não encontrado' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao atualizar produto' });
     }
-
-    
-
-} 
+};
 
 
 
