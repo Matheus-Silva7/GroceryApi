@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const isAuth = require("../middleware/is-auth");
+
+const isAdmin = require("../middleware/isAdmin");
+const { validateCategoria, validateProduto } = require("../services/validators");
 const categoryController = require("../controllers/categoryController") 
 const productController = require("../controllers/productController")
 
 //rota pegar todos os produtos
 router.get('/products', productController.GetProdutos)
 //rota cadastra produto
-router.post('/product',  productController.createProduto)
+router.post('/product', isAuth, isAdmin, validateProduto, productController.createProduto)
+
 
 //rota pegar produto específico
 router.get('/product/:id', productController.GetOneProduct)
@@ -22,7 +26,7 @@ router.put('/product/:id', productController.updateProduto)
 router.get('/categories', categoryController.GetCategories)
 
 //rota add categoria
-router.post('/category', isAuth, categoryController.CreateCategory)
+router.post('/category', isAuth, isAdmin, validateCategoria, categoryController.CreateCategory)
 
 
 

@@ -1,4 +1,5 @@
-const Produto = require("../models/produtoModel")
+const Produto = require("../models/produtoModel");
+const { validationResult } = require("express-validator");
 
 exports.createProduto = async (req, res) => {
     try {
@@ -68,6 +69,33 @@ exports.GetProdutos = async (req, res) => {
 };
 
 
+exports.GetProdutos = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const perPage = parseInt(req.query.perPage) || 5;
+  
+    try {
+      const totalItems = await Produto.count();
+      
+      const products = await Produto.findAll({
+        offset: (page - 1) * perPage,
+        limit: perPage,
+      });
+  
+      res.status(200).json({
+        totalItems: totalItems,
+        products: products,
+        currentPage: page,
+        perPage: perPage,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: "Erro ao buscar produtos",
+        error: error.message,
+      });
+    }
+  };
+  
 
 //pegar um produto em especifico
 exports.GetOneProduct = async (req, res) => {
