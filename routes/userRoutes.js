@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
+const pedidoController = require("../controllers/pedidoController")
 const isAuth = require("../middleware/is-auth");
 
 //rota mostrar dados do user
@@ -19,6 +20,9 @@ router.delete('/favorite/:id', isAuth, userController.deleteFavorite)
 router.post('/addCart')
 //rota para mostrar favoritos user
 router.get('/cart')
+
+//rota para postar pedido
+router.post('/postOrder', isAuth, pedidoController.postPedido)
 
 //rota mostrar pedidos feitos
 router.get('/orders')

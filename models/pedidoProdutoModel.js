@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize")
 const database = require("../dbConnect")
 
-const pedidoProdutoSchema = database.define('pedido produto',{
+const pedidoProdutoSchema = database.define('pedidoProduto',{
     pedido: {
         type: Sequelize.INTEGER,
         references: {

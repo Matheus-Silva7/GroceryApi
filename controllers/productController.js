@@ -24,7 +24,7 @@ exports.createProduto = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
-
+ 
 exports.updateProduto = async (req, res) => {
     const prodId = req.params.id;
 
@@ -143,8 +143,7 @@ exports.deleteProduct = async (req, res) => {
         product
     })
 }
-/* await User.destroy({
-  where: {
-    firstName: 'Jane',
-  },
-}); */
+
+exports.orderProduct = (req, res) =>{
+    
+} 

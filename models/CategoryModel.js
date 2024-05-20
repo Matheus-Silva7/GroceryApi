@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const database = require("../dbConnect");
 
 
-const CategorySchema = database.define('categories',{
+const CategorySchema = database.define('categorias',{
     id:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
