@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const isAuth = require("../middleware/is-auth");
-const categoryController = require("../controllers/categoryController")
+const categoryController = require("../controllers/categoryController") 
 const productController = require("../controllers/productController")
 
 //rota pegar todos os produtos
 router.get('/products', productController.GetProdutos)
 //rota cadastra produto
-router.post('/product', isAuth, productController.createProduto)
+router.post('/product',  productController.createProduto)
 
 //rota pegar produto específico
 router.get('/product/:id', productController.GetOneProduct)
+
+//rota deletar produto específico
+router.delete('/product/:id', productController.deleteProduct)
 
 //rota pegar categorias
 router.get('/categories', categoryController.GetCategories)

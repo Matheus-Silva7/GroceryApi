@@ -35,9 +35,11 @@ const ProductSchema = database.define('produtos', {
         type: Sequelize.INTEGER,
         references: {
             model: 'categorias', 
-            key: 'id',
+            key: 'id', 
         }
     }
+}, {
+    timestamps: false // Desativa os timestamps
 });
 
 module.exports = ProductSchema;

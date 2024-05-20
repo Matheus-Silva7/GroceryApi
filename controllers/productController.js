@@ -1,6 +1,33 @@
 const Produto = require("../models/produtoModel")
 
-exports.createProduto = (req, res) => {
+exports.createProduto = async (req, res) => {
+    try {
+        const { nome, imageProduct, qtd_disponivel, qtd_produto, preco, categoria_fk } = req.body;
+
+
+        const newProduct = await Produto.create(
+          /*   {
+                attributes: ['nome', 'imageProduct', 'qtd_disponivel', 'qtd_produto', 'preco', 'categoria_fk']
+            } */ {
+            nome,
+            imageProduct,
+            qtd_disponivel,
+            qtd_produto,
+            preco,
+            categoria_fk
+        });
+
+        res.status(201).json(newProduct);
+    } catch (error) {
+        console.error('Erro ao criar produto:', error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+/* exports.updateProduto = async (req, res) => {
+
+    const prodId = req.params.id
+
     const nome = req.body.name
     const imageProduct = req.body.imageProduct
     const qnt_disponivel = req.body.qtdDisponivel
@@ -8,22 +35,26 @@ exports.createProduto = (req, res) => {
     const preco = req.body.preco
     const categoria_fk = req.body.categoriaFk
 
-    const newProduct = Produto.create({
-        nome,
-        imageProduct,
-        qnt_disponivel,
-        qtd_produto,
-        preco,
-        categoria_fk
-    })
 
-    console.log(newProduct)
 
-    res.status(201).json({
-        message: "Produto cadastrado com suceso",
-        newProduct
-    })
-}
+    if (prodId) {
+        const newProduct = Produto.set({
+            nome,
+            imageProduct,
+            qnt_disponivel,
+            qtd_produto,
+            preco,
+            categoria_fk
+        })
+        console.log(newProduct)
+        
+    }
+
+    
+
+} */
+
+
 
 exports.GetProdutos = async (req, res) => {
     const allProducts = await Produto.findAll({
@@ -67,8 +98,8 @@ exports.GetOneProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
     const prodId = req.params.id
-    
-    const product = await Produto.destroy( {
+
+    const product = await Produto.destroy({
         where: {
             id: prodId
         }
