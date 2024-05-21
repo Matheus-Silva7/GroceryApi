@@ -55,23 +55,9 @@ exports.updateProduto = async (req, res) => {
 };
 
 
-
-exports.GetProdutos = async (req, res) => {
-    const allProducts = await Produto.findAll({
-        attributes: ['id', 'nome', 'imageProduct', 'qtd_disponivel', 'qtd_produto', 'preco', 'categoria_fk']
-    });
-
-    console.log(allProducts);
-
-    res.status(200).json({
-        allProducts
-    });
-};
-
-
 exports.GetProdutos = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 5;
+    const perPage = parseInt(req.query.perPage) || 10;
   
     try {
       const totalItems = await Produto.count();
@@ -102,9 +88,8 @@ exports.GetOneProduct = async (req, res) => {
     const prodId = req.params.id
     console.log(prodId)
 
-    const product = await Produto.findOne({
-        attributes: ['id', 'nome', 'imageProduct', 'qtd_disponivel', 'qtd_produto', 'preco', 'categoria_fk']
-    }, {
+    const product = await Produto.findOne(
+        {
         where: {
             id: prodId
         }
@@ -138,7 +123,7 @@ exports.deleteProduct = async (req, res) => {
         })
         return
     }
-
+ 
     res.status(201).json({
         product
     })

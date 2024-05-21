@@ -18,7 +18,7 @@ exports.signUp = async (req, res) => {
 
     const name = req.body.name
     const email = req.body.email
-    const password = req.body.password
+    const password = req.body.password 
     const fotoUsuario = req.body.fotoUsuario
     //ver se o user é adm ou nao
     const isAdm = req.body.admin
