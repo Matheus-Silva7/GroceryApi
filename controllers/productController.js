@@ -1,4 +1,5 @@
 const Produto = require("../models/produtoModel");
+const Category = require("../models/CategoryModel")
 const { validationResult } = require("express-validator");
 
 exports.createProduto = async (req, res) => {
@@ -6,19 +7,33 @@ exports.createProduto = async (req, res) => {
         const { nome, imageProduct, qtd_disponivel, qtd_produto, preco, categoria_fk } = req.body;
 
 
-        const newProduct = await Produto.create(
-          /*   {
-                attributes: ['nome', 'imageProduct', 'qtd_disponivel', 'qtd_produto', 'preco', 'categoria_fk']
-            } */ {
-            nome,
-            imageProduct,
-            qtd_disponivel,
-            qtd_produto,
-            preco,
-            categoria_fk
-        });
+        const categoryIsTrue = Category.findOne({
+            where:{
+                id: categoria_fk
+            }
+        })
 
-        res.status(201).json(newProduct);
+        if(categoryIsTrue){
+
+            const newProduct = await Produto.create(
+              /*   {
+                    attributes: ['nome', 'imageProduct', 'qtd_disponivel', 'qtd_produto', 'preco', 'categoria_fk']
+                } */ {
+                nome,
+                imageProduct,
+                qtd_disponivel,
+                qtd_produto,
+                preco,
+                categoria_fk
+            });
+    
+            res.status(201).json(newProduct);
+        } else{
+            res.status(401).json({
+                message: "Categoria não existe!"
+            });
+        }
+
     } catch (error) {
         console.error('Erro ao criar produto:', error);
         res.status(500).json({ error: error.message });
@@ -118,6 +133,27 @@ exports.GetOneProduct = async (req, res) => {
     }
 
     res.status(201).json({
+        product
+    })
+}
+
+exports.getProductByCategory = async (req, res) =>{
+    const categoryId = req.params.id
+
+    const product = await Produto.findAll({
+        where: {
+            categoria_fk: categoryId
+        }
+    })
+
+    if (product === null) {
+        res.status(404).json({
+            message: "Produto não encontrado"
+        })
+        return
+    }
+
+    res.status(200).json({
         product
     })
 }

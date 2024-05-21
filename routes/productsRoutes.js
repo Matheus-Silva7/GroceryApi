@@ -29,7 +29,7 @@ router.get('/categories', categoryController.GetCategories)
 router.post('/category', isAuth, isAdmin, validateCategoria, categoryController.CreateCategory)
 
 //rota pegar prod pela categoria
-router.get('/productCategory/:id')
+router.get('/productCategory/:id', productController.getProductByCategory)
 
 
 module.exports = router;
