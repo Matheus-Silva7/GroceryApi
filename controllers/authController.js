@@ -115,16 +115,7 @@ exports.signIn = async (req, res) => {
 
 }
 
-//mostrar todos os users
-//const users = await User.findAll()
 
-//User.FindOne
-/* User.findAll({
-where:{
-    email: "matheus@email.com"
-    //em produtos usar categoria =x, preco =y
-}
-})*/
 
 exports.updateUser = async (req, res) => {
     const userId = req.userId
